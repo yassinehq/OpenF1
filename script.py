@@ -38,13 +38,33 @@ print(len(tours))
 print(tours.columns)
 #endregion
 
-# MARK: - Étape 3
+# MARK: - Étape 4
 #region Etape 4
 print(tours["lap_duration"].min())
 index_pole = tours["lap_duration"].idxmin()
 print(index_pole)
 tour_pole = tours.loc[index_pole]
 print(tour_pole)
+
+#endregion
+
+# MARK: - Étape 5
+#region Etape 5
+numero_pilote = tour_pole["driver_number"]
+params_pilote = {
+    'session_key' : session_key,
+    'driver_number' : numero_pilote
+}
+
+reponse_pilote = requests.get("https://api.openf1.org/v1/drivers", params=params_pilote)
+donnees_pilote = reponse_pilote.json()
+df_pilote = pd.DataFrame(donnees_pilote)
+
+print(df_pilote["full_name"].iloc[0])
+print(df_pilote["team_name"].iloc[0])
+
+
+
 
 #endregion
 
