@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 
+# MARK: - Étape 1
 #region Etape 1
 #récupérer les infos de Monza 2024
 params = {
@@ -13,6 +14,7 @@ reponse = requests.get("https://api.openf1.org/v1/sessions", params=params)
 print(reponse.status_code)
 #endregion
 
+# MARK: - Étape 2
 #region Etape 2
 #création d'un tableau
 donnees = reponse.json()
@@ -20,6 +22,7 @@ df_session = pd.DataFrame(donnees)
 print(df_session)
 #endregion
 
+# MARK: - Étape 3
 #region Etape 3
 #récupérer tous les tours
 session_key = df_session["session_key"].iloc[0]
@@ -30,8 +33,18 @@ params_sk = {
 reponse_tours = requests.get("https://api.openf1.org/v1/laps", params=params_sk)
 donnees_tours = reponse_tours.json()
 tours = pd.DataFrame(donnees_tours)
+
 print(len(tours))
 print(tours.columns)
+#endregion
+
+# MARK: - Étape 3
+#region Etape 4
+print(tours["lap_duration"].min())
+index_pole = tours["lap_duration"].idxmin()
+print(index_pole)
+tour_pole = tours.loc[index_pole]
+print(tour_pole)
 
 #endregion
 
