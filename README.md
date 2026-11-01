@@ -1,2 +1,1 @@
-# fastf1
-Discovering the FastF1 library
+# OpenF1 library learning
